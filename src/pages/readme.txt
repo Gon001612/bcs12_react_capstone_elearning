@@ -1,0 +1,1 @@
+Thư mục page chứa các file đại diện cho các trang chứa các dự án. vd trang home, details, register

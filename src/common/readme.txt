@@ -1,0 +1,1 @@
+Thư mục common chứ các file setup một số giá trị tĩnh có trong dự án. cd: path đường dẫn

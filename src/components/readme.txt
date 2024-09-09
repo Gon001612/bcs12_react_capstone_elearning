@@ -1,0 +1,1 @@
+thư mục components chứ các components tái sử dụng trong các dự án hoặc các cấu trúc layout cần chia nhỏ, lưu ý nếu components không được tái sử dụng thì không nên  chia components
