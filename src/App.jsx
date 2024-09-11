@@ -1,5 +1,13 @@
+import React from 'react'
+import useRoutersCustom from './hooks/useRoutersCustome'
+
 function App() {
-  return <div className="text-red-500">Đây là template React-js</div>;
+  const routers = useRoutersCustom();
+  return (
+    <div>
+      {routers}
+    </div>
+  )
 }
 
-export default App;
+export default App
