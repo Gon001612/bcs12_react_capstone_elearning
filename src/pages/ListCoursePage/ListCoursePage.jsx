@@ -1,15 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import { khoaHocService } from '../../service/KhoaHoc.service';
 import { Card } from 'antd';
-import Meta from 'antd/es/card/Meta';
 
-const ListCorusePage = () => {
-    const [items, setItems] = useState([]);
+const ListCoursePage = () => {
+    const [listKhoaHoc, setListKhoaHoc] = useState([]);
     useEffect(() => {
         khoaHocService.layDanhSachKhoaHoc().then((res) => {
             console.log(res.data);
             const limitedItems = res.data.slice(0, 8);
-            setItems(limitedItems)
+            setListKhoaHoc(limitedItems)
         }).catch((err) => {
             console.log(err)
         })
@@ -20,10 +19,10 @@ const ListCorusePage = () => {
 
     return (
         <div className='container space-y-5'>
-            <h2 className='text-3xl'>Danh sách các khoá học</h2>
+            <h2 className='text-3xl'>Các Khoá Học Phổ Biến </h2>
             <div className="grid grid-cols-4 gap-5">
-                {items.length > 0 ? (
-                    items.map((item, index) => (
+                {listKhoaHoc.length > 0 ? (
+                    listKhoaHoc.map((item, index) => (
                         <Card
                             hoverable
                             style={{
@@ -52,4 +51,4 @@ const ListCorusePage = () => {
     )
 }
 
-export default ListCorusePage
+export default ListCoursePage

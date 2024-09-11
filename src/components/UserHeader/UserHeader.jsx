@@ -4,10 +4,13 @@ import { path } from '../../common/path'
 import logo from '../../assets/cyberlogo-white.png'
 import { khoaHocService } from '../../service/KhoaHoc.service'
 import { Dropdown, Space } from 'antd'
+import FormSearchProducts from '../Form/FormSearchProducts'
+import WrapperSuggetCourse from '../Wrapper/WrapperSuggetCourse'
+
 
 const UserHeader = () => {
-  const [items,setItems] = useState([]);
-  useEffect(() =>{
+  const [items, setItems] = useState([]);
+  useEffect(() => {
     khoaHocService.layDanhMucKhoaHoc().then((res) => {
       console.log(res)
       let newItemApi = res.data.map((item, index) => {
@@ -15,11 +18,11 @@ const UserHeader = () => {
           label: <Link>{item.tenDanhMuc}</Link>,
           key: index.String,
         }
-        
+
       })
-    setItems(newItemApi)
-    }).catch((err) => {console.log(err)})
-  },[])
+      setItems(newItemApi)
+    }).catch((err) => { console.log(err) })
+  }, [])
 
 
   return (
@@ -31,26 +34,30 @@ const UserHeader = () => {
               <img src={logo} alt="CyberSoft.edu.vn logo" className="cyberlogo" />
             </Link>
             <div>
+              <Dropdown
+                menu={{
+                  items,
+                }}
+                trigger={['click']}
+              >
+                <a onClick={(e) => e.preventDefault()} className='cursor-pointer '>
+                  <Space className='py-2 px-4 bg-white rounded-md hover:text-yellow-400/70 duration-200 hover:bg-yellow-800'>
+                    <span> <i className="fa-solid fa-bars"></i> </span>
+                    Danh Mục Khoá Học
+                  </Space>
+                </a>
+              </Dropdown>
             </div>
-            <Dropdown
-              menu={{
-                items,
-              }}
-              trigger={['click']}
-            >
-              <a onClick={(e) => e.preventDefault()} className='cursor-pointer '>
-                <Space className='py-2 px-4 bg-white rounded-md hover:text-yellow-400/70 duration-200 hover:bg-yellow-800'>
-                  <span> <i className="fa-solid fa-bars"></i> </span>
-                  Danh Mục Khoá Học
-                </Space>
-              </a>
-            </Dropdown>
-            {/* {listDanhMucKhoaHoc()} */}
-
           </div>
+
           <div className="header_navigate space-x-3">
+                <WrapperSuggetCourse> 
+                <FormSearchProducts />
+                </WrapperSuggetCourse>
+              
 
           </div>
+
         </div>
       </div>
     </header>

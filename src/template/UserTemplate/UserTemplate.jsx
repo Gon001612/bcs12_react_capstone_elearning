@@ -10,7 +10,7 @@ const UserTemplate = () => {
       <UserHeader/>
       </header>
 
-      <main className='bg-gray-200/90'>
+      <main className='bg-gray-200/90 h-screen'>
         <Outlet/>
       </main>
 

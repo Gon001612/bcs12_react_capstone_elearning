@@ -2,7 +2,8 @@ import React from 'react'
 import { useRoutes } from 'react-router-dom'
 import { path } from '../common/path'
 import UserTemplate from '../template/UserTemplate/UserTemplate'
-import ListCorusePage from '../pages/ListCoursePage/ListCorusePage'
+import ListCoursePage from '../pages/ListCoursePage/ListCoursePage'
+import ListSearchCoursePage from '../pages/ListCoursePage/ListSearchCoursePage'
 
 const useRoutersCustom = () => {
   const routes = useRoutes([
@@ -12,10 +13,11 @@ const useRoutersCustom = () => {
         children: [
           {
             index: true,
-            element: <ListCorusePage/>
+            element: <ListCoursePage/>
           },
           {
-            path: '/'
+            path: path.courseList,
+            element: <ListSearchCoursePage/>
           }
         ]
         

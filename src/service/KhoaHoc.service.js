@@ -8,7 +8,9 @@ export const khoaHocService = {
         return https.get(`QuanLyKhoaHoc/LayDanhSachKhoaHoc?MaNhom=GP01`,data)
     },
     layDanhSachKhoaHocTheoDanhMuc: (data) => {
-        return https.get(`/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${maDanhMuc}&MaNhom=GP01`)
-
-    }
+        return https.get(`/QuanLyKhoaHoc/LayKhoaHocTheoDanhMuc?maDanhMuc=${data}&MaNhom=GP01`)
+    },
+    layDanhSachKhoaHocTheoTen: (data) => {
+        return https.get(`https://elearningnew.cybersoft.edu.vn/api/QuanLyKhoaHoc/LayDanhSachKhoaHoc?tenKhoaHoc=${data}&MaNhom=GP01`)
+    },
 }
