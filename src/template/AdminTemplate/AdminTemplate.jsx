@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link, Outlet } from "react-router-dom";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -7,7 +8,6 @@ import {
   VideoCameraOutlined,
 } from "@ant-design/icons";
 import { Button, Layout, Menu, theme } from "antd";
-import { Link, Outlet } from "react-router-dom";
 const { Header, Sider, Content } = Layout;
 const AdminTemplate = () => {
   const [collapsed, setCollapsed] = useState(false);
@@ -25,23 +25,13 @@ const AdminTemplate = () => {
           items={[
             {
               key: "1",
-              icon: <UserOutlined />,
-              label: <Link to="/admin/manager-user">Người dùng</Link>,
+              icon: <i className="fa-solid fa-book"></i>,
+              label: <Link>Quản lý khóa học</Link>,
             },
             {
               key: "2",
-              icon: <i className="fa-solid fa-briefcase"></i>,
-              label: <Link>Công việc</Link>,
-            },
-            {
-              key: "3",
-              icon: <i className="fa-regular fa-handshake"></i>,
-              label: <Link>Công việc đã thuê</Link>,
-            },
-            {
-              key: "4",
-              icon: <UserOutlined />,
-              label: <Link to={"/admin/create-user"}>Tạo người dùng</Link>,
+              icon: <i className="fa-solid fa-user"></i>,
+              label: <Link to={"/manager-user"}>Quản lý người dùng</Link>,
             },
           ]}
         />

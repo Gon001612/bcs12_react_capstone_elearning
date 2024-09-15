@@ -9,7 +9,13 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { authService } from "../../service/auth.service";
 import { NotificationContext } from "../../App";
 import { setLocalStorage } from "../../utils/util";
+
 const RegisterPage = () => {
+  const isReponsive = useResponsive({
+    mobile: 576,
+    tablet: 768,
+    laptop: 1280,
+  });
   const options = {
     animationData: signInAnimation,
     loop: true,
@@ -64,9 +70,23 @@ const RegisterPage = () => {
   return (
     <div className="">
       <div className="container">
-        <div className="LoginPage_content flex items-center h-screen">
-          <div className="LoginPage_img w-1/3 ">{View}</div>
-          <div className="LoginPage_form w-1/2">
+        <div
+          className={`register_content ${
+            isReponsive.mobile ? "block" : "flex"
+          } items-center h-screen`}
+        >
+          <div
+            className={`register_img ${
+              isReponsive.mobile ? "w-full" : "w-1/2"
+            }`}
+          >
+            {View}
+          </div>
+          <div
+            className={`register_form ${
+              isReponsive.mobile ? "w-full" : "w-1/2"
+            }`}
+          >
             <form className="space-y-5" onSubmit={handleSubmit}>
               <h1 className="text-center text-3xl font-bold uppercase">
                 Đăng kí
