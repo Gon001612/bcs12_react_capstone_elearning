@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import { useRoutes } from "react-router-dom";
 import AdminTemplate from "../template/AdminTemplate/AdminTemplate";
 import { path } from "../common/path";
@@ -6,6 +6,8 @@ import LoginPage from "../pages/LoginPage/LoginPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import AdminLogin from "../pages/AdminLogin/AdminLogin";
 import ManagerUser from "../pages/ManagerUser/ManagerUser";
+import KhoaHoc from "../pages/KhoaHoc/KhoaHoc";
+import { Skeleton } from "antd";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -26,11 +28,18 @@ const useRoutesCustom = () => {
       element: <AdminTemplate />,
       children: [
         {
-          // path: "/manager-user",
-          index: true,
-          element: <ManagerUser />,
+          path: "manager-user",
+          // index: true,
+          element: (
+            <Suspense fallback={<Skeleton />}>
+              <ManagerUser />,
+            </Suspense>
+          ),
         },
-        
+        {
+          path: "khoahoc",
+          element: <KhoaHoc />,
+        },
       ],
     },
     {

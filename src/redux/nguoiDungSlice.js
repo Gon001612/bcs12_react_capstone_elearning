@@ -23,9 +23,6 @@ const nguoiDungSlice = createSlice({
       console.log(action);
       state.listNguoiDung = action.payload;
     });
-    // builder.addCase(getValueUserApi.rejected, (state, action) => {
-    //   console.log(action);
-    // });
   },
 });
 

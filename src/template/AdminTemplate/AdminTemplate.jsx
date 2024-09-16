@@ -26,12 +26,12 @@ const AdminTemplate = () => {
             {
               key: "1",
               icon: <i className="fa-solid fa-book"></i>,
-              label: <Link>Quản lý khóa học</Link>,
+              label: <Link to={"/admin/khoahoc"}>Quản lý khóa học</Link>,
             },
             {
               key: "2",
               icon: <i className="fa-solid fa-user"></i>,
-              label: <Link to={"/manager-user"}>Quản lý người dùng</Link>,
+              label: <Link to={"/admin/manager-user"}>Quản lý người dùng</Link>,
             },
           ]}
         />
