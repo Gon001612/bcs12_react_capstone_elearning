@@ -24,10 +24,16 @@ const WrapperSuggetCourse = ({ children }) => {
                     return {
                         key: index.toString(),
                         label: <Link className="flex items-center space-x-4">
+                            <div className='w-1/5'>
                             <img src={item.hinhAnh} className='h-24' alt="" />
-                            <div>
+                            </div>
+                            <div className='w-3/5'>
                                 <h4>{item.biDanh}</h4>
                                 <p>{item.danhMucKhoaHoc.tenDanhMucKhoaHoc}</p>
+                                <div className='flex items-center justify-between' >
+                                    <p >Lượt xem: <span className='ml-2'><i class="fa-solid fa-eye"></i></span>  {item.luotXem}</p>
+                                    <p> Số học viên: <span className='ml-2'><i class="fa-solid fa-user"></i></span> {item.soLuongHocVien} </p>
+                                </div>
                             </div>
                         </Link>
                     }

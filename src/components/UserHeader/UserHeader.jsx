@@ -6,23 +6,24 @@ import { khoaHocService } from '../../service/KhoaHoc.service'
 import { Dropdown, Space } from 'antd'
 import FormSearchProducts from '../Form/FormSearchProducts'
 import WrapperSuggetCourse from '../Wrapper/WrapperSuggetCourse'
+import FormCodeProducts from '../Form/FormCodeProducts'
 
 
 const UserHeader = () => {
-  const [items, setItems] = useState([]);
-  useEffect(() => {
-    khoaHocService.layDanhMucKhoaHoc().then((res) => {
-      console.log(res)
-      let newItemApi = res.data.map((item, index) => {
-        return {
-          label: <Link>{item.tenDanhMuc}</Link>,
-          key: index.String,
-        }
+  // const [items, setItems] = useState([]);
+  // useEffect(() => {
+  //   khoaHocService.layDanhMucKhoaHoc().then((res) => {
+  //     console.log(res)
+  //     let newItemApi = res.data.map((item, index) => {
+  //       return {
+  //         label: <Link>{item.tenDanhMuc}</Link>,
+  //         key: index.toString,
+  //       }
 
-      })
-      setItems(newItemApi)
-    }).catch((err) => { console.log(err) })
-  }, [])
+  //     })
+  //     setItems(newItemApi)
+  //   }).catch((err) => { console.log(err) })
+  // }, [])
 
 
   return (
@@ -34,7 +35,7 @@ const UserHeader = () => {
               <img src={logo} alt="CyberSoft.edu.vn logo" className="cyberlogo" />
             </Link>
             <div>
-              <Dropdown
+              {/* <Dropdown
                 menu={{
                   items,
                 }}
@@ -46,7 +47,8 @@ const UserHeader = () => {
                     Danh Mục Khoá Học
                   </Space>
                 </a>
-              </Dropdown>
+              </Dropdown> */}
+              <FormCodeProducts/>
             </div>
           </div>
 
@@ -55,7 +57,6 @@ const UserHeader = () => {
                 <FormSearchProducts />
                 </WrapperSuggetCourse>
               
-
           </div>
 
         </div>
@@ -65,3 +66,4 @@ const UserHeader = () => {
 }
 
 export default UserHeader
+

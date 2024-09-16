@@ -41,7 +41,10 @@ const ListSearchCoursePage = () => {
                         >
                             <div className='space-y-3'>
                                 <h2 className='text-xl font-medium uppercase border-b-2'>{item.danhMucKhoaHoc.tenDanhMucKhoaHoc}</h2>
+                                <div className=''>
                                 <p>{item.moTa}</p>
+
+                                </div>
                                 <div className='flex items-center justify-between' >
                                     <p >Lượt xem: <span className='ml-2'><i class="fa-solid fa-eye"></i></span>  {item.luotXem}</p>
                                     <p> Số học viên: <span className='ml-2'><i class="fa-solid fa-user"></i></span> {item.soLuongHocVien} </p>
