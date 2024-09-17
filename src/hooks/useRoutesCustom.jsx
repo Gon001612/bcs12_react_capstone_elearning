@@ -8,6 +8,7 @@ import AdminLogin from "../pages/AdminLogin/AdminLogin";
 import ManagerUser from "../pages/ManagerUser/ManagerUser";
 import KhoaHoc from "../pages/KhoaHoc/KhoaHoc";
 import { Skeleton } from "antd";
+import CreateUser from "../pages/CreateUser/CreateUser";
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -39,6 +40,10 @@ const useRoutesCustom = () => {
         {
           path: "khoahoc",
           element: <KhoaHoc />,
+        },
+        {
+          path: "create-user",
+          element: <CreateUser />,
         },
       ],
     },

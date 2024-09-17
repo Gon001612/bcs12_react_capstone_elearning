@@ -9,6 +9,7 @@ import { Link, Navigate, useNavigate } from "react-router-dom";
 import { authService } from "../../service/auth.service";
 import { NotificationContext } from "../../App";
 import { setLocalStorage } from "../../utils/util";
+import useResponsive from "../../hooks/useReponsive";
 
 const RegisterPage = () => {
   const isReponsive = useResponsive({
@@ -35,6 +36,9 @@ const RegisterPage = () => {
         email: "",
       },
       onSubmit: (values) => {
+        if (!values.sodienthoai) {
+          values.sodienthoai = ""; // Đảm bảo không trả về null
+        }
         console.log(values);
         authService
           .signUp(values)
@@ -59,7 +63,11 @@ const RegisterPage = () => {
           .min(6, "Vui lòng nhập tối thiểu 6 kí tự")
           .max(12, "Vui lòng nhập tối đa 12 kí tự"),
         hoten: yup.string().required("Vui lòng nhập họ tên"),
-        sodienthoai: yup.string().required("Vui lòng nhập số điện thoại"),
+        sodienthoai: yup
+          .string()
+          .required("Vui lòng nhập số điện thoại")
+          .matches(/^[0-9]+$/, "Số điện thoại không hợp lệ")
+          .min(10, "Số điện thoại phải có ít nhất 10 chữ số"),
         manhom: yup.string().required("Vui lòng nhập mã nhóm"),
         email: yup
           .string()

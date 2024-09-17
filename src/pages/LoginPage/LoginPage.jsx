@@ -11,6 +11,7 @@ import RegisterPage from "../RegisterPage/RegisterPage";
 import { NotificationContext } from "../../App";
 import { useDispatch } from "react-redux";
 import useResponsive from "../../hooks/useReponsive";
+import { getInfoUser } from "../../redux/authSlice";
 
 const LoginPage = () => {
   const isReponsive = useResponsive({
@@ -41,7 +42,7 @@ const LoginPage = () => {
             console.log(res);
             // b1: lữu trũ ở localStorage
             setLocalStorage("user", res.data);
-            // dispatch(getInfoUser(res.data));
+            dispatch(getInfoUser(res.data));
             // thực hiện thông báo và chuyển hướng người dùng
             showNotification("Đăng nhập thành công", "success", 2000);
             setTimeout(() => {

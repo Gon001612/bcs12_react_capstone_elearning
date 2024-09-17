@@ -9,6 +9,7 @@ import { NotificationContext } from "../../App";
 import { getLocalStorage, setLocalStorage } from "../../utils/util";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { getInfoUser } from "../../redux/authSlice";
 
 const AdminLogin = () => {
   const navigate = useNavigate();
@@ -27,30 +28,27 @@ const AdminLogin = () => {
           console.log(res);
           if (res.data.maLoaiNguoiDung == "HV") {
             showNotification(
-              "bạn không phải admin không thể đăng nhập",
+              "Bạn không phải admin không thể đăng nhập",
               "error"
             );
-            let soLanViPham = getLocalStorage("soLanViPham");
+            let soLanViPham = getLocalStorage("ViPham");
             if (!soLanViPham) {
-              setLocalStorage("soLanViPham", 1);
+              setLocalStorage("ViPham", 1);
             } else {
               soLanViPham++;
               soLanViPham == 3
-                ? (window.location.href = "http://google.com")
-                : setLocalStorage("soLanViPham", soLanViPham);
+                ? (window.location.href = "https://google.com")
+                : setLocalStorage("ViPham", soLanViPham);
             }
           } else {
             setLocalStorage("user", res.data);
             dispatch(getInfoUser(res.data));
-            navigate("/admin");
+            navigate("/admin/manager-user");
           }
         })
         .catch((err) => {
           console.log(err);
-          showNotification(
-            "Vui lòng báo về bộ phận chăm sóc khách hàng",
-            "error"
-          );
+          showNotification("Vui lòng báo cáo cho IT", "error");
         });
     },
   });
