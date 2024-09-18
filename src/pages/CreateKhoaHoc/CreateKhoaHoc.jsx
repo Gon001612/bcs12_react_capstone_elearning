@@ -7,28 +7,32 @@ import { NotificationContext } from "../../App";
 import { getInfoUser } from "../../redux/authSlice";
 import { setLocalStorage } from "../../utils/util";
 
-const CreateUser = () => {
+const CreateKhoaHoc = () => {
   const { showNotification } = useContext(NotificationContext);
   const { infoUser } = useSelector((state) => state.authSlice);
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  const [valueUser, setValueUser] = useState({
-    taiKhoan: "",
-    matKhau: "",
-    hoTen: "",
-    soDT: "",
-    maLoaiNguoiDung: true,
-    maNhom: "",
-    email: "",
+  const [valueKhoaHoc, setValueKhoaHoc] = useState({
+    maKhoaHoc: "string",
+    biDanh: "string",
+    tenKhoaHoc: "string",
+    moTa: "string",
+    luotXem: 0,
+    danhGia: 0,
+    hinhAnh: "string",
+    maNhom: "string",
+    ngayTao: "string",
+    maDanhMucKhoaHoc: "string",
+    taiKhoanNguoiTao: "string",
   });
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(valueUser);
     nguoiDungService
-      .createUser(valueUser)
+      .CreateKhoaHoc(valueUser)
       .then((res) => {
         console.log(res);
         setLocalStorage("user", res.data);
@@ -46,7 +50,7 @@ const CreateUser = () => {
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
-    setValueUser({ ...valueUser, [name]: value });
+    setValueKhoaHoc({ ...valueKhoaHoc, [name]: value });
   };
 
   const handleRenderStep = () => {
@@ -55,30 +59,42 @@ const CreateUser = () => {
         return (
           <form className="space-y-5" onSubmit={handleSubmit}>
             <div className="flex flex-wrap gap-5">
-              {/* Cột 1: Tài khoản, Mật khẩu, Họ tên */}
               <div className="flex-1 bg-gray-100 p-5 rounded-lg shadow-md">
                 <h3 className="font-semibold text-xl mb-3">
-                  Thông tin tài khoản
+                  Thông tin khóa học
                 </h3>
                 <InputCustom
-                  labelContent={"Tài Khoản"}
-                  name="taiKhoan"
+                  labelContent={"Mã Khóa Học"}
+                  name="maKhoaHoc"
                   onChange={handleChangeInput}
                 />
                 <InputCustom
-                  labelContent={"Mật khẩu"}
-                  typeInput="password"
-                  name="matKhau"
+                  labelContent={"Tên Khóa Học"}
+                  name="tenKhoaHoc"
                   onChange={handleChangeInput}
                 />
-                <InputCustom
-                  labelContent={"Họ tên"}
-                  name="hoTen"
-                  onChange={handleChangeInput}
-                />
+                <div>
+                  <label
+                    htmlFor="userType"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Danh mục khóa học
+                  </label>
+                  <select
+                    name="maDanhMucKhoaHoc"
+                    onChange={handleChangeInput}
+                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+                  >
+                    <option value="BackEnd">Lập trình Backend</option>
+                    <option value="Design">Thiết kế Web</option>
+                    <option value="DiDong">Lập trình di động</option>
+                    <option value="FrontEnd">Lập trình Front end</option>
+                    <option value="FullStack">Lập trình Full Stack</option>
+                    <option value="TuDuy">Tư duy lập trình</option>
+                  </select>
+                </div>
               </div>
 
-              {/* Cột 2: Email, Số điện thoại, Loại người dùng */}
               <div className="flex-1 bg-gray-100 p-5 rounded-lg shadow-md">
                 <InputCustom
                   labelContent={"Email"}
@@ -146,10 +162,10 @@ const CreateUser = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl mb-5">Thêm Người dùng</h2>
+      <h2 className="font-semibold text-2xl mb-5">Thêm Khóa Học</h2>
       {handleRenderStep()}
     </div>
   );
 };
 
-export default CreateUser;
+export default CreateKhoaHoc;

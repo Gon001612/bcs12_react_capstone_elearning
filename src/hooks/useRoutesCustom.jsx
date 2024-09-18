@@ -5,10 +5,14 @@ import { path } from "../common/path";
 import LoginPage from "../pages/LoginPage/LoginPage";
 import RegisterPage from "../pages/RegisterPage/RegisterPage";
 import AdminLogin from "../pages/AdminLogin/AdminLogin";
-import ManagerUser from "../pages/ManagerUser/ManagerUser";
+// import ManagerUser from "../pages/ManagerUser/ManagerUser";
 import KhoaHoc from "../pages/KhoaHoc/KhoaHoc";
 import { Skeleton } from "antd";
 import CreateUser from "../pages/CreateUser/CreateUser";
+import CreateKhoaHoc from "../pages/CreateKhoaHoc/CreateKhoaHoc";
+const ManagerUser = React.lazy(() =>
+  import("../pages/ManagerUser/ManagerUser")
+);
 
 const useRoutesCustom = () => {
   const routes = useRoutes([
@@ -30,7 +34,7 @@ const useRoutesCustom = () => {
       children: [
         {
           path: "manager-user",
-          // index: true,
+          index: true,
           element: (
             <Suspense fallback={<Skeleton />}>
               <ManagerUser />,
@@ -44,6 +48,10 @@ const useRoutesCustom = () => {
         {
           path: "create-user",
           element: <CreateUser />,
+        },
+        {
+          path: "create-khoahoc",
+          element: <CreateKhoaHoc />,
         },
       ],
     },

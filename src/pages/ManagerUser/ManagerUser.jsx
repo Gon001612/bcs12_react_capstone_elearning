@@ -1,12 +1,15 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getValueUserApi } from "../../redux/nguoiDungSlice";
 import { Space, Table } from "antd";
 import Search from "antd/es/transfer/search";
 import { Link } from "react-router-dom";
+import { nguoiDungService } from "../../service/nguoiDung.service";
+import { NotificationContext } from "../../App";
 
 const ManagerUser = () => {
   const dispatch = useDispatch();
+  const { showNotification } = useContext(NotificationContext);
   const { listNguoiDung } = useSelector((state) => state.nguoiDungSlice);
 
   useEffect(() => {
@@ -54,7 +57,22 @@ const ManagerUser = () => {
           <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
             Sửa
           </button>
-          <button className="bg-red-500 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={() => {
+              nguoiDungService
+                .deleteUser(record.taiKhoan)
+                .then((res) => {
+                  console.log(res);
+                  dispatch(getValueUserApi());
+                  showNotification("Xóa thành công", "success", 2000);
+                })
+                .catch((err) => {
+                  console.log(err);
+                  showNotification(err.response.data, "error");
+                });
+            }}
+            className="bg-red-500 text-white font-bold py-2 px-4 rounded"
+          >
             Xóa
           </button>
         </Space>

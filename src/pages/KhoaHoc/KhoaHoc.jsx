@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getvalueKhoaHocApi } from "../../redux/khoaHocSlice";
 import { Space, Table } from "antd";
 import Search from "antd/es/transfer/search";
+import { Link } from "react-router-dom";
 
 const KhoaHoc = () => {
   const dispatch = useDispatch();
@@ -68,6 +69,15 @@ const KhoaHoc = () => {
 
   return (
     <div>
+      <button className="bg-green-500 text-white font-bold py-2 px-4 rounded mb-5">
+        <Link to={"/admin/create-khoahoc"}>Thêm Khóa Học</Link>
+      </button>
+      <Search
+        className="mb-5"
+        placeholder="Tìm kiếm khóa học ..."
+        onChange={(e) => setSearchText(e.target.value)} // Cập nhật từ khóa tìm kiếm
+        style={{ marginBottom: 20, width: 400 }}
+      />
       <Table columns={columns} dataSource={listKhoaHoc} />
     </div>
   );
