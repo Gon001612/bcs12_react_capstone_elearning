@@ -23,7 +23,7 @@ const ListCourseFromCodeCourse = () => {
 
 
   return (
-    <div>
+    <div className='h-screen-full'>
       <h1>Danh sách khóa học theo danh mục: {maDanhMuc}</h1>
       <div className="grid grid-cols-4 gap-10 mt-10">
         {courses.map(course => (

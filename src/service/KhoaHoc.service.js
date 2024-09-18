@@ -1,6 +1,9 @@
 import { https } from "./config"
 
 export const khoaHocService = {
+    getListKhoaHoc: () => {
+        return https.get("/QuanLyKhoaHoc/LayDanhSachKhoaHoc");
+      },
     layDanhMucKhoaHoc: (data) => {
         return https.get(`/QuanLyKhoaHoc/LayDanhMucKhoaHoc`,data)
     },
