@@ -3,9 +3,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { getValueUserApi } from "../../redux/nguoiDungSlice";
 import { Space, Table } from "antd";
 import Search from "antd/es/transfer/search";
-import { Link } from "react-router-dom";
+import { Form, Link } from "react-router-dom";
 import { nguoiDungService } from "../../service/nguoiDung.service";
 import { NotificationContext } from "../../App";
+import FormSearchProduct from "../../components/Form/FormSearchProduct";
 
 const ManagerUser = () => {
   const dispatch = useDispatch();
@@ -85,12 +86,7 @@ const ManagerUser = () => {
       <button className="bg-green-500 text-white font-bold py-2 px-4 rounded mb-5">
         <Link to={"/admin/create-user"}>Thêm Người Dùng</Link>
       </button>
-      <Search
-        className="mb-5"
-        placeholder="Tìm kiếm người dùng..."
-        onChange={(e) => setSearchText(e.target.value)} // Cập nhật từ khóa tìm kiếm
-        style={{ marginBottom: 20, width: 400 }}
-      />
+      <FormSearchProduct />
       <Table columns={columns} dataSource={listNguoiDung} />
     </div>
   );

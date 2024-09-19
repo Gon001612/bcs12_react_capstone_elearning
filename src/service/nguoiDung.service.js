@@ -28,4 +28,10 @@ export const nguoiDungService = {
       },
     });
   },
+
+  layTenUser: (TaiKhoan) => {
+    return http.get(
+      `/QuanLyNguoiDung/LayThongTinNguoiDung?TaiKhoan=${TaiKhoan}`
+    );
+  },
 };

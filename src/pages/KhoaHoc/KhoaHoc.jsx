@@ -1,12 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getvalueKhoaHocApi } from "../../redux/khoaHocSlice";
 import { Space, Table } from "antd";
 import Search from "antd/es/transfer/search";
 import { Link } from "react-router-dom";
+import { khoaHocService } from "../../service/khoaHoc.service";
+import { NotificationContext } from "../../App";
+import FormSearchProduct from "../../components/Form/FormSearchProduct";
 
 const KhoaHoc = () => {
   const dispatch = useDispatch();
+  const { showNotification } = useContext(NotificationContext);
   const { listKhoaHoc } = useSelector((state) => state.khoaHocSlice);
 
   useEffect(() => {
@@ -59,7 +63,21 @@ const KhoaHoc = () => {
           <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
             Sửa
           </button>
-          <button className="bg-red-500 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={() => {
+              khoaHocService
+                .deleteKhoaHoc(record.maKhoaHoc)
+                .then(() => {
+                  dispatch(getvalueKhoaHocApi());
+                  showNotification("Xóa thành công", "success", 2000);
+                })
+                .catch((error) => {
+                  console.log(error);
+                  showNotification(error.response.data, "error");
+                });
+            }}
+            className="bg-red-500 text-white font-bold py-2 px-4 rounded"
+          >
             Xóa
           </button>
         </Space>
@@ -72,12 +90,7 @@ const KhoaHoc = () => {
       <button className="bg-green-500 text-white font-bold py-2 px-4 rounded mb-5">
         <Link to={"/admin/create-khoahoc"}>Thêm Khóa Học</Link>
       </button>
-      <Search
-        className="mb-5"
-        placeholder="Tìm kiếm khóa học ..."
-        onChange={(e) => setSearchText(e.target.value)} // Cập nhật từ khóa tìm kiếm
-        style={{ marginBottom: 20, width: 400 }}
-      />
+      <FormSearchProduct />
       <Table columns={columns} dataSource={listKhoaHoc} />
     </div>
   );

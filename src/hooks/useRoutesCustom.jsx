@@ -10,6 +10,7 @@ import KhoaHoc from "../pages/KhoaHoc/KhoaHoc";
 import { Skeleton } from "antd";
 import CreateUser from "../pages/CreateUser/CreateUser";
 import CreateKhoaHoc from "../pages/CreateKhoaHoc/CreateKhoaHoc";
+import ListUser from "../pages/ListUser/ListUser";
 const ManagerUser = React.lazy(() =>
   import("../pages/ManagerUser/ManagerUser")
 );

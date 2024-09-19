@@ -6,13 +6,16 @@ import { nguoiDungService } from "../../service/nguoiDung.service";
 import { NotificationContext } from "../../App";
 import { getInfoUser } from "../../redux/authSlice";
 import { setLocalStorage } from "../../utils/util";
+import { khoaHocService } from "../../service/khoaHoc.service";
 
 const CreateKhoaHoc = () => {
+  const { listKhoaHoc } = useSelector((state) => state.authSlice);
   const { showNotification } = useContext(NotificationContext);
   const { infoUser } = useSelector((state) => state.authSlice);
   const [step, setStep] = useState(0);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [avatar, setAvatar] = useState(null);
 
   const [valueKhoaHoc, setValueKhoaHoc] = useState({
     maKhoaHoc: "string",
@@ -30,27 +33,19 @@ const CreateKhoaHoc = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(valueUser);
-    nguoiDungService
-      .CreateKhoaHoc(valueUser)
-      .then((res) => {
-        console.log(res);
-        setLocalStorage("user", res.data);
-        dispatch(getInfoUser(res.data));
-        showNotification("Thêm người dùng thành công", "success", 2000);
-        setTimeout(() => {
-          navigate("/admin/manager-user");
-        }, 1000);
-      })
-      .catch((err) => {
-        console.log(err);
-        showNotification(err.response.data, "error");
-      });
   };
 
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setValueKhoaHoc({ ...valueKhoaHoc, [name]: value });
+  };
+
+  const handleUpLoadAvatar = (e) => {
+    e.preventDefault();
+    let formData = new FormData();
+    formData.append("frm", avatar.file);
+
+    khoaHocService.upLoadAvatar();
   };
 
   const handleRenderStep = () => {
@@ -93,6 +88,16 @@ const CreateKhoaHoc = () => {
                     <option value="TuDuy">Tư duy lập trình</option>
                   </select>
                 </div>
+                {/* Ngày tạo */}
+                <div>
+                  <label
+                    htmlFor="date"
+                    className="block mb-2 text-sm font-medium text-gray-900"
+                  >
+                    Ngày Tạo
+                  </label>
+                  <input type="date" />
+                </div>
               </div>
 
               <div className="flex-1 bg-gray-100 p-5 rounded-lg shadow-md">
@@ -116,7 +121,7 @@ const CreateKhoaHoc = () => {
                     htmlFor="userType"
                     className="block mb-2 text-sm font-medium text-gray-900"
                   >
-                    Loại Người Dùng
+                    Người tạo
                   </label>
                   <select
                     name="maLoaiNguoiDung"
@@ -127,8 +132,30 @@ const CreateKhoaHoc = () => {
                     <option value="HV">Học Viên</option>
                   </select>
                 </div>
+                <div className="space-y-3">
+                  <label htmlFor="">Hình ảnh</label>
+                  <input
+                    type="file"
+                    onChange={(e) => {
+                      console.log(e.target.files[0]);
+                      if (e.target.files[0]) {
+                        const urlAvatar = URL.createObjectURL(
+                          e.target.files[0]
+                        );
+                        console.log(urlAvatar);
+                        setAvatar({
+                          file: e.target.files[0],
+                          url: urlAvatar,
+                        });
+                      }
+                    }}
+                    accept="image/png, image/jpeg"
+                  />
+                </div>
+                <img src={avatar?.url} width={100} sizes="" />
               </div>
             </div>
+            <InputCustom labelContent={"Mô tả"} name="moTa" />
 
             {/* Các nút hành động */}
             <div className="flex justify-between items-center mt-5">
@@ -136,7 +163,7 @@ const CreateKhoaHoc = () => {
                 type="button"
                 className="font-bold py-2 px-4 rounded mb-5"
               >
-                <Link to={"/admin/manager-user"}>Trở Lại</Link>
+                <Link to={"/admin/khoahoc"}>Trở Lại</Link>
               </button>
               <div className="flex space-x-3">
                 <button
