@@ -28,10 +28,20 @@ export const nguoiDungService = {
       },
     });
   },
+  UpdateUser: (data) => {
+    return http.put("/QuanLyNguoiDung/CapNhatThongTinNguoiDung", data, {
+      headers: {
+        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiaG9hbmd2dTIwMDEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJHViIsIm5iZiI6MTcyNjY3NTM4NiwiZXhwIjoxNzI2Njc4OTg2fQ.EziFyhaL-0YkOE7D-bKwW04e1P2JgyEID9XUAOnGk3c"}`,
+      },
+    });
+  },
 
   layTenUser: (TaiKhoan) => {
-    return http.get(
-      `/QuanLyNguoiDung/LayThongTinNguoiDung?TaiKhoan=${TaiKhoan}`
-    );
+    return http.get(`/QuanLyNguoiDung/TimKiemNguoiDung`, {
+      params: { TaiKhoan },
+      headers: {
+        Authorization: `Bearer ${"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiaG9hbmd2dTIwMDEiLCJodHRwOi8vc2NoZW1hcy5taWNyb3NvZnQuY29tL3dzLzIwMDgvMDYvaWRlbnRpdHkvY2xhaW1zL3JvbGUiOiJHViIsIm5iZiI6MTcyNjY3NTM4NiwiZXhwIjoxNzI2Njc4OTg2fQ.EziFyhaL-0YkOE7D-bKwW04e1P2JgyEID9XUAOnGk3c"}`,
+      },
+    });
   },
 };
