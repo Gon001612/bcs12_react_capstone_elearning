@@ -12,6 +12,7 @@ import CreateUser from "../pages/CreateUser/CreateUser";
 import CreateKhoaHoc from "../pages/CreateKhoaHoc/CreateKhoaHoc";
 import ListUser from "../pages/ListUser/ListUser";
 import UpdateUser from "../pages/UpdateUser/UpdateUser";
+import UpdateKhoaHoc from "../pages/UpdateKhoaHoc/UpdateKhoaHoc";
 const ManagerUser = React.lazy(() =>
   import("../pages/ManagerUser/ManagerUser")
 );
@@ -58,6 +59,10 @@ const useRoutesCustom = () => {
         {
           path: "update-user",
           element: <UpdateUser />,
+        },
+        {
+          path: "update-khoahoc",
+          element: <UpdateKhoaHoc />,
         },
       ],
     },

@@ -1,14 +1,10 @@
 import React, { useContext, useState } from "react";
-import InputCustom from "../../components/input/InputCustom";
-import { Link, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { nguoiDungService } from "../../service/nguoiDung.service";
+import { Link, useNavigate } from "react-router-dom";
 import { NotificationContext } from "../../App";
-import { getInfoUser } from "../../redux/authSlice";
-import { setLocalStorage } from "../../utils/util";
-import { khoaHocService } from "../../service/khoaHoc.service";
+import InputCustom from "../../components/input/InputCustom";
 
-const CreateKhoaHoc = () => {
+const UpdateKhoaHoc = () => {
   const { listKhoaHoc } = useSelector((state) => state.authSlice);
   const { showNotification } = useContext(NotificationContext);
   const { infoUser } = useSelector((state) => state.authSlice);
@@ -205,10 +201,10 @@ const CreateKhoaHoc = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl mb-5">Thêm Khóa Học</h2>
+      <h2 className="font-semibold text-2xl mb-5">Cập Nhật Khóa Học</h2>
       {handleRenderStep()}
     </div>
   );
 };
 
-export default CreateKhoaHoc;
+export default UpdateKhoaHoc;

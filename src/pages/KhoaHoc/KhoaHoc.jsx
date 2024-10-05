@@ -61,7 +61,7 @@ const KhoaHoc = () => {
             Ghi danh
           </button>
           <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-            Sửa
+            <Link to={"/admin/update-khoahoc"}>Sửa</Link>
           </button>
           <button
             onClick={() => {

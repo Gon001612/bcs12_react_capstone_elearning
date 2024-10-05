@@ -1,4 +1,3 @@
-import CreateKhoaHoc from "../pages/CreateKhoaHoc/CreateKhoaHoc";
 import { http } from "./config";
 
 export const nguoiDungService = {
@@ -13,7 +12,6 @@ export const nguoiDungService = {
       },
     });
   },
-
   createUser: (data) => {
     return http.post("/QuanLyNguoiDung/ThemNguoiDung", data, {
       headers: {
@@ -35,7 +33,6 @@ export const nguoiDungService = {
       },
     });
   },
-
   layTenUser: (TaiKhoan) => {
     return http.get(`/QuanLyNguoiDung/TimKiemNguoiDung`, {
       params: { TaiKhoan },

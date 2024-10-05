@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { path } from "../../common/path";
-
 import { DownOutlined, SmileOutlined } from "@ant-design/icons";
 import { Dropdown, Space } from "antd";
 import { nguoiDungService } from "../../service/nguoiDung.service";
@@ -19,7 +18,7 @@ const FormSearchProduct = () => {
       nguoiDungService
         .layTenUser(valueSearch)
         .then((res) => {
-          console.log(res.data);
+          console.log(res.data); // Kiểm tra dữ liệu từ API
           let newItems = res.data.slice(0, 4).map((item, index) => {
             return {
               key: index.toString(),
