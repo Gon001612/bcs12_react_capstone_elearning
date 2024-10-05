@@ -1,82 +1,101 @@
 import React from "react";
+import { Table, Button, Space } from "antd";
 
-const Popup = ({ visible, onClose, onConfirm, course }) => {
+const CourseList = ({ courses, onConfirm, onCancel, title }) => {
   const columns = [
     {
-      title: "Name",
+      title: "STT",
+      dataIndex: "stt",
+      key: "stt",
+      render: (text, record, index) => index + 1,
+    },
+    {
+      title: "Tên khóa học",
       dataIndex: "name",
       key: "name",
-      render: (text) => <a>{text}</a>,
     },
     {
-      title: "Age",
-      dataIndex: "age",
-      key: "age",
-    },
-    {
-      title: "Address",
-      dataIndex: "address",
-      key: "address",
-    },
-    {
-      title: "Tags",
-      key: "tags",
-      dataIndex: "tags",
-      render: (_, { tags }) => (
-        <>
-          {tags.map((tag) => {
-            let color = tag.length > 5 ? "geekblue" : "green";
-            if (tag === "loser") {
-              color = "volcano";
-            }
-            return (
-              <Tag color={color} key={tag}>
-                {tag.toUpperCase()}
-              </Tag>
-            );
-          })}
-        </>
-      ),
-    },
-    {
-      title: "Action",
+      title: "Chờ xác nhận",
       key: "action",
       render: (_, record) => (
         <Space size="middle">
-          <a>Invite {record.name}</a>
-          <a>Delete</a>
+          {record.pending ? (
+            <>
+              <Button onClick={() => onConfirm(record)} type="primary">
+                Xác thực
+              </Button>
+              <Button onClick={() => onCancel(record)} danger>
+                Hủy
+              </Button>
+            </>
+          ) : (
+            <Button onClick={() => onCancel(record)} danger>
+              Hủy
+            </Button>
+          )}
         </Space>
       ),
     },
   ];
 
-  if (!visible) return null;
-
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center">
-      <div className="bg-white p-5 rounded shadow-lg">
-        <h2 className="text-xl font-bold mb-4">Xác nhận ghi danh</h2>
-        <p>
-          Bạn có chắc muốn ghi danh vào khóa học{" "}
-          <strong>{course?.taiKhoan}</strong> không?
-        </p>
-        <div className="mt-5 flex justify-end space-x-4">
-          <button
-            onClick={onClose}
-            className="bg-gray-500 text-white font-bold py-2 px-4 rounded"
-          >
-            Hủy
-          </button>
-          <button
-            onClick={onConfirm}
-            className="bg-green-500 text-white font-bold py-2 px-4 rounded"
-          >
-            Xác nhận
-          </button>
-        </div>
-      </div>
+    <div>
+      <h3>{title}</h3>
+      <Table
+        columns={columns}
+        dataSource={courses}
+        pagination={{ pageSize: 5 }}
+        rowKey="name"
+      />
     </div>
   );
 };
 
-export default Popup;
+const CourseRegistration = () => {
+  const pendingCourses = [
+    { name: "Tư duy lập trình", pending: true },
+    { name: "Lập trình frontend", pending: true },
+  ];
+
+  const registeredCourses = [
+    { name: "Tư duy lập trình", pending: false },
+    { name: "Lập trình frontend", pending: false },
+  ];
+
+  const handleConfirm = (course) => {
+    console.log("Confirmed:", course);
+  };
+
+  const handleCancel = (course) => {
+    console.log("Cancelled:", course);
+  };
+
+  return (
+    <div>
+      <div className="course-select">
+        <label>Chọn khóa học</label>
+        <select>
+          <option>Lập trình backend</option>
+          <option>Lập trình frontend</option>
+        </select>
+        <button>Ghi danh</button>
+      </div>
+
+      <CourseList
+        title="Khóa học chờ xác thực (Nếu không có thì khỏi hiển thị)"
+        courses={pendingCourses}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+
+      <CourseList
+        title="Khóa học đã ghi danh (Nếu không có thì khỏi hiển thị)"
+        courses={registeredCourses}
+        onConfirm={handleConfirm}
+        onCancel={handleCancel}
+      />
+    </div>
+  );
+};
+
+export default CourseRegistration;
