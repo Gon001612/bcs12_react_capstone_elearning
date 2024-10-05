@@ -1,0 +1,33 @@
+/* src/components/Header.css */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  border-bottom: 1px solid #ccc;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+}
+
+.logo img {
+  width: 40px; /* Kích thước logo */
+  height: 40px;
+  margin-right: 10px;
+}
+
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.logout-button {
+  background-color: transparent; /* Màu nền trong suốt */
+  border: none; /* Bỏ viền */
+  color: blue; /* Màu chữ */
+  cursor: pointer; /* Con trỏ khi hover */
+  margin-left: 20px; /* Khoảng cách giữa tên và nút */
+  font-size: 16px; /* Kích thước chữ */
+}

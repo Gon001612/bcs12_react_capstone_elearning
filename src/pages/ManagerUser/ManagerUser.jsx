@@ -7,6 +7,7 @@ import { nguoiDungService } from "../../service/nguoiDung.service";
 import { NotificationContext } from "../../App";
 import FormSearchProduct from "../../components/Form/FormSearchProduct";
 import Popup from "../../components/Popup/Popup";
+import UserHeader from "./UserHeader";
 
 const ManagerUser = () => {
   const dispatch = useDispatch();
