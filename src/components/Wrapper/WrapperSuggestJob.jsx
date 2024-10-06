@@ -2,7 +2,7 @@ import { Dropdown } from "antd";
 import React, { useEffect, useState } from "react";
 import useDebounce from "../../hooks/useDebounce";
 import { congViecService } from "../../service/congViec.service";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const WrapperSuggestJob = ({ children }) => {
   const [valueSearch, setValueSearch] = useState("");
