@@ -34,16 +34,19 @@ const UserHeader = () => {
 
   const checkUserLogin = () => {
     return infoUser ? (
-      <Dropdown
-        menu={{
-          items,
-        }}
-        trigger={["click"]}
-      >
-        <Avatar className="cursor-pointer hover:bg-orange-500">
-          {infoUser.taiKhoan.charAt(0).toUpperCase()}
-        </Avatar>
-      </Dropdown>
+      <div className="flex items-center space-x-2">
+        <span>Chào, {infoUser.taiKhoan}</span>
+        <Dropdown
+          menu={{
+            items,
+          }}
+          trigger={["click"]}
+        >
+          <Avatar className="cursor-pointer hover:bg-orange-500">
+            {infoUser.taiKhoan.charAt(0).toUpperCase()}
+          </Avatar>
+        </Dropdown>
+      </div>
     ) : (
       <>
         <Link

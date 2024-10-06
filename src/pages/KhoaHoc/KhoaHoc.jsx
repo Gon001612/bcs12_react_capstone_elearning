@@ -58,7 +58,7 @@ const KhoaHoc = () => {
       render: (_, record) => (
         <Space size="middle">
           <button className="bg-green-500 text-white font-bold py-2 px-4 rounded">
-            Ghi danh
+            <Link to={"/admin/popupkh"}>Ghi danh</Link>
           </button>
           <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
             <Link to={"/admin/update-khoahoc"}>Sửa</Link>
@@ -90,7 +90,7 @@ const KhoaHoc = () => {
       <button className="bg-green-500 text-white font-bold py-2 px-4 rounded mb-5">
         <Link to={"/admin/create-khoahoc"}>Thêm Khóa Học</Link>
       </button>
-      <FormSearchProduct />
+      <FormSearchProduct placeholder={"Nhập vào tài khoản hoặc người dùng"} />
       <Table columns={columns} dataSource={listKhoaHoc} />
     </div>
   );

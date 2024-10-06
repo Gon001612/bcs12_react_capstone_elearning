@@ -13,6 +13,8 @@ import CreateKhoaHoc from "../pages/CreateKhoaHoc/CreateKhoaHoc";
 import ListUser from "../pages/ListUser/ListUser";
 import UpdateUser from "../pages/UpdateUser/UpdateUser";
 import UpdateKhoaHoc from "../pages/UpdateKhoaHoc/UpdateKhoaHoc";
+import Popup from "../pages/ManagerUser/Popup";
+import PopupKH from "../pages/KhoaHoc/PopupKH";
 const ManagerUser = React.lazy(() =>
   import("../pages/ManagerUser/ManagerUser")
 );
@@ -63,6 +65,14 @@ const useRoutesCustom = () => {
         {
           path: "update-khoahoc",
           element: <UpdateKhoaHoc />,
+        },
+        {
+          path: "popup",
+          element: <Popup />,
+        },
+        {
+          path: "popupkh",
+          element: <PopupKH />,
         },
       ],
     },

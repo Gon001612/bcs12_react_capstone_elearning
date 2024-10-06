@@ -1,6 +1,6 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { NotificationContext } from "../../App";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Thêm useLocation
 import { useDispatch } from "react-redux";
 import { nguoiDungService } from "../../service/nguoiDung.service";
 import InputCustom from "../../components/input/InputCustom";
@@ -10,6 +10,9 @@ const UpdateUser = () => {
   const { showNotification } = useContext(NotificationContext);
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const location = useLocation(); // Nhận location
+  const user = location.state; // Lấy thông tin người dùng từ state
+
   const [valueUser, setValueUser] = useState({
     taiKhoan: "",
     matKhau: "",
@@ -19,9 +22,24 @@ const UpdateUser = () => {
     maNhom: "",
     email: "",
   });
+
+  // Sử dụng useEffect để khởi tạo giá trị người dùng
+  useEffect(() => {
+    if (user) {
+      setValueUser({
+        taiKhoan: user.taiKhoan,
+        matKhau: user.matKhau || "", // Giả sử bạn không muốn hiển thị mật khẩu
+        hoTen: user.hoTen,
+        soDT: user.soDT,
+        maLoaiNguoiDung: user.maLoaiNguoiDung,
+        maNhom: user.maNhom || "",
+        email: user.email,
+      });
+    }
+  }, [user]);
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(valueUser);
     nguoiDungService
       .UpdateUser(valueUser)
       .then((res) => {
@@ -37,10 +55,12 @@ const UpdateUser = () => {
         showNotification(err.response.data, "error");
       });
   };
+
   const handleChangeInput = (e) => {
     const { name, value } = e.target;
     setValueUser({ ...valueUser, [name]: value });
   };
+
   return (
     <div>
       <form className="space-y-5" onSubmit={handleSubmit}>
@@ -53,17 +73,21 @@ const UpdateUser = () => {
             <InputCustom
               labelContent={"Tài Khoản"}
               name="taiKhoan"
+              value={valueUser.taiKhoan} // Hiển thị giá trị
               onChange={handleChangeInput}
+              disabled // Không cho phép sửa tài khoản
             />
             <InputCustom
               labelContent={"Mật khẩu"}
               typeInput="password"
               name="matKhau"
+              value={valueUser.matKhau} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <InputCustom
               labelContent={"Họ tên"}
               name="hoTen"
+              value={valueUser.hoTen} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
           </div>
@@ -73,16 +97,19 @@ const UpdateUser = () => {
             <InputCustom
               labelContent={"Email"}
               name="email"
+              value={valueUser.email} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <InputCustom
               labelContent={"Số điện thoại"}
               name="soDT"
+              value={valueUser.soDT} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <InputCustom
               labelContent={"Mã Nhóm"}
               name="maNhom"
+              value={valueUser.maNhom} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <div>
@@ -94,6 +121,7 @@ const UpdateUser = () => {
               </label>
               <select
                 name="maLoaiNguoiDung"
+                value={valueUser.maLoaiNguoiDung} // Hiển thị giá trị
                 onChange={handleChangeInput}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >

@@ -6,7 +6,7 @@ import { Dropdown, Space } from "antd";
 import { nguoiDungService } from "../../service/nguoiDung.service";
 import useDebounce from "../../hooks/useDebounce";
 
-const FormSearchProduct = () => {
+const FormSearchProduct = ({ placeholder }) => {
   const [valueSearch, setValueSearch] = useState("");
   const navigate = useNavigate();
   const debounce = useDebounce(valueSearch, 1000);
@@ -63,7 +63,7 @@ const FormSearchProduct = () => {
               onChange={handleChange}
               className="flex-1 focus:border-none focus:outline-none"
               type="text"
-              placeholder="nhập vào tài khoản hoặc tên người dùng"
+              placeholder={placeholder}
             />
             <button type="submit" className="p-2 text-sm">
               <i className="fa-solid fa-magnifying-glass"></i>
