@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { path } from "../../common/path";
 import logo from "../../assets/cyberlogo-white.png";
-import { khoaHocService } from "../../service/KhoaHoc.service";
+import { khoaHocService } from "../../service/khoaHoc.service";
 import { Avatar, Dropdown, Space } from "antd";
 import FormSearchProducts from "../Form/FormSearchProducts";
 import WrapperSuggetCourse from "../Wrapper/WrapperSuggetCourse";

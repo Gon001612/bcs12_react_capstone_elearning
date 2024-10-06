@@ -1,15 +1,5 @@
 import axios from "axios";
 
-<<<<<<< HEAD
-export const https = axios.create({
-    baseURL: "https://elearningnew.cybersoft.edu.vn/api",
-    timeout: 30000,
-    headers: {
-        tokenCyberSoft: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCBTw6FuZyAxMiIsIkhldEhhblN0cmluZyI6IjIyLzAxLzIwMjUiLCJIZXRIYW5UaW1lIjoiMTczNzUwNDAwMDAwMCIsIm5iZiI6MTcxMjk0MTIwMCwiZXhwIjoxNzM3NjUxNjAwfQ.QIS-5ejbLk-ly0KkZrtV0hoyQXSL9wqIkbziyg_m8hg'
-    }
-})
-
-=======
 export const http = axios.create({
   baseURL: "https://elearningnew.cybersoft.edu.vn/api",
   timeout: 30000,
@@ -28,4 +18,3 @@ export const http2 = axios.create({
       "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ0ZW5Mb3AiOiJCb290Y2FtcCBTw6FuZyAxMiIsIkhldEhhblN0cmluZyI6IjIyLzAxLzIwMjUiLCJIZXRIYW5UaW1lIjoiMTczNzUwNDAwMDAwMCIsIm5iZiI6MTcxMjk0MTIwMCwiZXhwIjoxNzM3NjUxNjAwfQ.QIS-5ejbLk-ly0KkZrtV0hoyQXSL9wqIkbziyg_m8hg",
   },
 });
->>>>>>> hoangvu
