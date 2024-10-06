@@ -33,4 +33,7 @@ export const khoaHocService = {
       }
     );
   },
+  DangKiKhoaHoc: (data) => {
+    return http.post("/QuanLyKhoaHoc/GhiDanh", data);
+  },
 };
