@@ -1,17 +1,21 @@
-import React, { useEffect } from "react";
+import React, { useContext, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getValueUserApi } from "../../redux/nguoiDungSlice";
 import { Space, Table } from "antd";
-import Search from "antd/es/transfer/search";
 import { Link } from "react-router-dom";
+import { nguoiDungService } from "../../service/nguoiDung.service";
+import { NotificationContext } from "../../App";
+import FormSearchProduct from "../../components/Form/FormSearchProduct";
 
 const ManagerUser = () => {
   const dispatch = useDispatch();
+  const { showNotification } = useContext(NotificationContext);
+
   const { listNguoiDung } = useSelector((state) => state.nguoiDungSlice);
 
   useEffect(() => {
     dispatch(getValueUserApi());
-  }, []);
+  }, [dispatch]);
 
   const columns = [
     {
@@ -39,9 +43,7 @@ const ManagerUser = () => {
       title: "Mã Loại Người Dùng",
       dataIndex: "maLoaiNguoiDung",
       key: "maLoaiNguoiDung",
-      render: (text) => (
-        <tag color={text == "HV" ? "cyan-inverse" : "red-inverse"}>{text}</tag>
-      ),
+      render: (text) => <span>{text}</span>,
     },
     {
       title: "Thao Tác",
@@ -49,12 +51,27 @@ const ManagerUser = () => {
       render: (_, record) => (
         <Space size="middle">
           <button className="bg-green-500 text-white font-bold py-2 px-4 rounded">
-            Ghi danh
+            <Link to={"/admin/popup"}>Ghi danh</Link>
           </button>
           <button className="bg-blue-500 text-white font-bold py-2 px-4 rounded">
-            Sửa
+            <Link to={"/admin/update-user"} state={record}>
+              Sửa
+            </Link>
           </button>
-          <button className="bg-red-500 text-white font-bold py-2 px-4 rounded">
+          <button
+            onClick={() => {
+              nguoiDungService
+                .deleteUser(record.taiKhoan)
+                .then((res) => {
+                  dispatch(getValueUserApi());
+                  showNotification("Xóa thành công", "success", 2000);
+                })
+                .catch((err) => {
+                  showNotification(err.response.data, "error");
+                });
+            }}
+            className="bg-red-500 text-white font-bold py-2 px-4 rounded"
+          >
             Xóa
           </button>
         </Space>
@@ -67,12 +84,9 @@ const ManagerUser = () => {
       <button className="bg-green-500 text-white font-bold py-2 px-4 rounded mb-5">
         <Link to={"/admin/create-user"}>Thêm Người Dùng</Link>
       </button>
-      <Search
-        className="mb-5"
-        placeholder="Tìm kiếm người dùng..."
-        onChange={(e) => setSearchText(e.target.value)} // Cập nhật từ khóa tìm kiếm
-        style={{ marginBottom: 20, width: 400 }}
-      />
+
+      <FormSearchProduct placeholder={"Nhập vào tài khoản hoặc người dùng"} />
+
       <Table columns={columns} dataSource={listNguoiDung} />
     </div>
   );

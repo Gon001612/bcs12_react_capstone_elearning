@@ -1,4 +1,5 @@
 export const path = {
+<<<<<<< HEAD
     homePage:'/',
     pageNotFound: '*',
     courseList: '/list-course',
@@ -6,3 +7,9 @@ export const path = {
     signIn: "/sign-in",
     admin: "/admin",
 }
+=======
+  signUp: "/register",
+  signIn: "/sign-in",
+  admin: "/admin",
+};
+>>>>>>> hoangvu

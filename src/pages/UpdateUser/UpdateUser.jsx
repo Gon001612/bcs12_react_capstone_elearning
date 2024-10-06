@@ -1,45 +1,57 @@
-import React, { useContext, useState } from "react";
-import InputCustom from "../../components/input/InputCustom";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useContext, useState, useEffect } from "react";
+import { NotificationContext } from "../../App";
+import { Link, useNavigate, useLocation } from "react-router-dom"; // Thêm useLocation
 import { useDispatch } from "react-redux";
 import { nguoiDungService } from "../../service/nguoiDung.service";
-import { NotificationContext } from "../../App";
-import { getInfoUser } from "../../redux/authSlice";
-import { setLocalStorage } from "../../utils/util";
-import { getValueUserApi } from "../../redux/nguoiDungSlice"; // Import getValueUserApi
+import InputCustom from "../../components/input/InputCustom";
+import { getValueUserApi } from "../../redux/nguoiDungSlice";
 
-const CreateUser = () => {
+const UpdateUser = () => {
   const { showNotification } = useContext(NotificationContext);
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const location = useLocation(); // Nhận location
+  const user = location.state; // Lấy thông tin người dùng từ state
 
   const [valueUser, setValueUser] = useState({
     taiKhoan: "",
     matKhau: "",
     hoTen: "",
     soDT: "",
-
     maLoaiNguoiDung: true,
-
     maNhom: "",
     email: "",
   });
 
-  const navigate = useNavigate();
-  const dispatch = useDispatch();
+  // Sử dụng useEffect để khởi tạo giá trị người dùng
+  useEffect(() => {
+    if (user) {
+      setValueUser({
+        taiKhoan: user.taiKhoan,
+        matKhau: user.matKhau || "", // Giả sử bạn không muốn hiển thị mật khẩu
+        hoTen: user.hoTen,
+        soDT: user.soDT,
+        maLoaiNguoiDung: user.maLoaiNguoiDung,
+        maNhom: user.maNhom || "",
+        email: user.email,
+      });
+    }
+  }, [user]);
 
   const handleSubmit = (e) => {
     e.preventDefault();
     nguoiDungService
-      .createUser(valueUser)
+      .UpdateUser(valueUser)
       .then((res) => {
-        setLocalStorage("user", res.data);
-        dispatch(getInfoUser(res.data));
-        dispatch(getValueUserApi()); // Gọi lại để cập nhật danh sách người dùng
-        showNotification("Thêm người dùng thành công", "success", 2000);
+        console.log(res);
+        dispatch(getValueUserApi());
+        showNotification("Cập nhật người dùng thành công", "success", 2000);
         setTimeout(() => {
           navigate("/admin/manager-user");
         }, 1000);
       })
       .catch((err) => {
+        console.log(err);
         showNotification(err.response.data, "error");
       });
   };
@@ -51,42 +63,53 @@ const CreateUser = () => {
 
   return (
     <div>
-      <h2 className="font-semibold text-2xl mb-5">Thêm Người dùng</h2>
       <form className="space-y-5" onSubmit={handleSubmit}>
         <div className="flex flex-wrap gap-5">
+          {/* Cột 1: Tài khoản, Mật khẩu, Họ tên */}
           <div className="flex-1 bg-gray-100 p-5 rounded-lg shadow-md">
-            <h3 className="font-semibold text-xl mb-3">Thông tin tài khoản</h3>
+            <h3 className="font-semibold text-xl mb-3">
+              Cập nhật thông tin người dùng
+            </h3>
             <InputCustom
               labelContent={"Tài Khoản"}
               name="taiKhoan"
+              value={valueUser.taiKhoan} // Hiển thị giá trị
               onChange={handleChangeInput}
+              disabled // Không cho phép sửa tài khoản
             />
             <InputCustom
               labelContent={"Mật khẩu"}
               typeInput="password"
               name="matKhau"
+              value={valueUser.matKhau} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <InputCustom
               labelContent={"Họ tên"}
               name="hoTen"
+              value={valueUser.hoTen} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
           </div>
+
+          {/* Cột 2: Email, Số điện thoại, Loại người dùng */}
           <div className="flex-1 bg-gray-100 p-5 rounded-lg shadow-md">
             <InputCustom
               labelContent={"Email"}
               name="email"
+              value={valueUser.email} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <InputCustom
               labelContent={"Số điện thoại"}
               name="soDT"
+              value={valueUser.soDT} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <InputCustom
               labelContent={"Mã Nhóm"}
               name="maNhom"
+              value={valueUser.maNhom} // Hiển thị giá trị
               onChange={handleChangeInput}
             />
             <div>
@@ -98,6 +121,7 @@ const CreateUser = () => {
               </label>
               <select
                 name="maLoaiNguoiDung"
+                value={valueUser.maLoaiNguoiDung} // Hiển thị giá trị
                 onChange={handleChangeInput}
                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
               >
@@ -107,6 +131,8 @@ const CreateUser = () => {
             </div>
           </div>
         </div>
+
+        {/* Các nút hành động */}
         <div className="flex justify-between items-center mt-5">
           <button type="button" className="font-bold py-2 px-4 rounded mb-5">
             <Link to={"/admin/manager-user"}>Trở Lại</Link>
@@ -119,7 +145,7 @@ const CreateUser = () => {
               Thêm
             </button>
             <button
-              type="button"
+              type="submit"
               className="bg-red-500 text-white font-bold py-2 px-4 rounded"
             >
               Lưu
@@ -131,4 +157,4 @@ const CreateUser = () => {
   );
 };
 
-export default CreateUser;
+export default UpdateUser;

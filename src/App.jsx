@@ -1,16 +1,15 @@
-import React from 'react'
-import useRoutersCustom from './hooks/useRoutersCustome'
-import "react-toastify/dist/ReactToastify.css";
+import React, { useEffect } from "react";
+import useRoutesCustom from "./hooks/useRoutesCustom";
 import { Bounce, ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import { NoStyleItemContext } from "antd/es/form/context";
-import { Routes } from 'react-router-dom';
 
 export const NotificationContext = React.createContext();
 
 function App() {
-  const routers = useRoutersCustom();
+  const routes = useRoutesCustom();
 
-  const showNotification = (content, type, duration = 2000) => {
+  const showNotification = (content, type, duration = 4000) => {
     toast[type](content, {
       position: "top-right",
       autoClose: duration,
@@ -29,10 +28,11 @@ function App() {
         value={{ showNotification: showNotification }}
       >
         <ToastContainer />
-        {routers}
+
+        {routes}
       </NotificationContext.Provider>
     </>
   );
 }
 
-export default App
+export default App;

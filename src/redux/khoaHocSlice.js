@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { khoaHocService } from "../service/KhoaHoc.service";
+
+import { khoaHocService } from "../service/khoaHoc.service";
 
 export const getvalueKhoaHocApi = createAsyncThunk(
   "khoaHoc/getValueKhoaHocApi",

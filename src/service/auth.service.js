@@ -1,10 +1,12 @@
-import { https } from "./config";
+
+import { http } from "./config";
 
 export const authService = {
   signIn: (data) => {
-    return https.post("/QuanLyNguoiDung/DangNhap", data);
+    return http.post("/QuanLyNguoiDung/DangNhap", data);
   },
   signUp: (data) => {
-    return https.post("/QuanLyNguoiDung/DangKy", data);
+    return http.post("/QuanLyNguoiDung/DangKy", data);
+
   },
 };
