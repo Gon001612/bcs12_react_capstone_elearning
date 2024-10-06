@@ -1,12 +1,12 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { nguoiDungService } from "../service/nguoiDung.service";
 
+// Thao tác lấy danh sách người dùng
 export const getValueUserApi = createAsyncThunk(
   "nguoiDung/getValueUserApi",
   async (_, thunkAPI) => {
-    const resolve = await nguoiDungService.getListUser();
-    console.log(resolve);
-    return resolve.data;
+    const response = await nguoiDungService.getListUser();
+    return response.data;
   }
 );
 
@@ -20,12 +20,9 @@ const nguoiDungSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getValueUserApi.fulfilled, (state, action) => {
-      console.log(action);
       state.listNguoiDung = action.payload;
     });
   },
 });
-
-export const {} = nguoiDungSlice.actions;
 
 export default nguoiDungSlice.reducer;

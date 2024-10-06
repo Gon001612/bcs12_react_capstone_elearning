@@ -10,7 +10,6 @@ import KhoaHoc from "../pages/KhoaHoc/KhoaHoc";
 import { Skeleton } from "antd";
 import CreateUser from "../pages/CreateUser/CreateUser";
 import CreateKhoaHoc from "../pages/CreateKhoaHoc/CreateKhoaHoc";
-import ListUser from "../pages/ListUser/ListUser";
 import UpdateUser from "../pages/UpdateUser/UpdateUser";
 import UpdateKhoaHoc from "../pages/UpdateKhoaHoc/UpdateKhoaHoc";
 import Popup from "../pages/ManagerUser/Popup";

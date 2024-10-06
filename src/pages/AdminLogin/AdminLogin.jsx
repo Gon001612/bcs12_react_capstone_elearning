@@ -48,7 +48,7 @@ const AdminLogin = () => {
         })
         .catch((err) => {
           console.log(err);
-          showNotification("Vui lòng báo cáo cho IT", "error");
+          showNotification(err.response.data, "error");
         });
     },
   });

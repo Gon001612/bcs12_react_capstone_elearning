@@ -1,77 +1,71 @@
-import React, { useEffect, useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { path } from "../../common/path";
-import { DownOutlined, SmileOutlined } from "@ant-design/icons";
-import { Dropdown, Space } from "antd";
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { debounce } from "lodash";
 import { nguoiDungService } from "../../service/nguoiDung.service";
-import useDebounce from "../../hooks/useDebounce";
 
-const FormSearchProduct = ({ placeholder }) => {
-  const [valueSearch, setValueSearch] = useState("");
+const FormSearchProduct = ({
+  placeholder = "Nhập thông tin cần tìm kiếm",
+  handleGetValueChildren,
+}) => {
   const navigate = useNavigate();
-  const debounce = useDebounce(valueSearch, 1000);
-  const [items, setItems] = useState([]);
-  const [openDropdown, setOpenDropdown] = useState(false);
+  const [valueSearch, setValueSearch] = useState("");
+  const [suggestions, setSuggestions] = useState([]);
 
-  useEffect(() => {
-    if (valueSearch) {
-      nguoiDungService
-        .layTenUser(valueSearch)
-        .then((res) => {
-          console.log(res.data); // Kiểm tra dữ liệu từ API
-          let newItems = res.data.slice(0, 4).map((item, index) => {
-            return {
-              key: index.toString(),
-              label: (
-                <Link className="flex items-center space-x-4">
-                  <h2>{item.taiKhoan}</h2>
-                </Link>
-              ),
-            };
-          });
-          setItems(newItems);
-          setOpenDropdown(true);
-        })
-        .catch((err) => {
-          console.log(err);
-          setOpenDropdown(false);
-        });
-    }
-  }, [debounce]);
-
-  const handleChange = (e) => {
-    setValueSearch(e.target.value);
-    if (!e.target.value) {
-      setOpenDropdown(false);
-    }
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    navigate(`/search?keyword=${valueSearch}`);
   };
-  const handleSubmit = (e) => {
-    e.preventDefault();
+
+  // Debounce input để tránh gọi API liên tục
+  const handleSearch = debounce(async (value) => {
+    if (value) {
+      try {
+        const response = await nguoiDungService.TimKiemNguoiDung(value); // Gọi API tìm kiếm người dùng
+        const filteredSuggestions = response.data.map((user) => ({
+          taiKhoan: user.taiKhoan,
+          hoTen: user.hoTen,
+        }));
+        setSuggestions(filteredSuggestions); // Cập nhật danh sách gợi ý
+        if (handleGetValueChildren) handleGetValueChildren(filteredSuggestions); // Trả dữ liệu cho component cha
+      } catch (error) {
+        console.error(error);
+        setSuggestions([]);
+      }
+    } else {
+      setSuggestions([]);
+    }
+  }, 500); // Thời gian debounce 500ms
+
+  const handleChange = (event) => {
+    const value = event.target.value;
+    setValueSearch(value);
+    handleSearch(value);
   };
 
   return (
-    <>
-      <Dropdown
-        menu={{
-          items,
-        }}
-        open={openDropdown}
-      >
-        <form onSubmit={handleSubmit}>
-          <div className="flex items-center justify-between w-[500px] border rounded-md border-black pl-4">
-            <input
-              onChange={handleChange}
-              className="flex-1 focus:border-none focus:outline-none"
-              type="text"
-              placeholder={placeholder}
-            />
-            <button type="submit" className="p-2 text-sm">
-              <i className="fa-solid fa-magnifying-glass"></i>
-            </button>
-          </div>
-        </form>
-      </Dropdown>
-    </>
+    <form onSubmit={handleSubmit}>
+      <div className="flex items-center justify-between w-[500px] border rounded-md border-black pl-4">
+        <input
+          onChange={handleChange}
+          className="flex-1 focus:border-none focus:outline-none"
+          type="text"
+          placeholder={placeholder}
+          value={valueSearch}
+        />
+        <button type="submit" className="p-2 text-sm">
+          <i className="fa-solid fa-magnifying-glass"></i>
+        </button>
+      </div>
+      {suggestions.length > 0 && (
+        <ul className="bg-white border border-gray-300">
+          {suggestions.map((suggestion, index) => (
+            <li key={index} className="p-2 hover:bg-gray-200">
+              {suggestion.taiKhoan} - {suggestion.hoTen}
+            </li>
+          ))}
+        </ul>
+      )}
+    </form>
   );
 };
 
